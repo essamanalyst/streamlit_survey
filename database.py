@@ -7,9 +7,17 @@ import json
 from pathlib import Path
 
 # تهيئة عميل Supabase
-url: str = os.environ.get("https://alacgbvghdxvqpfzalrb.supabase.co")
-key: str = os.environ.get("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFsYWNnYnZnaGR4dnFwZnphbHJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI2ODU5MzYsImV4cCI6MjA2ODI2MTkzNn0.B7ZlY3GYMo-YGegr50kawkg_HPo-4J-VddDgGCX04eA")
-supabase: Client = create_client(url, key)
+try:
+    supabase: Client = create_client(
+        st.secrets["supabase"]["https://alacgbvghdxvqpfzalrb.supabase.co"],
+        st.secrets["supabase"]["eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFsYWNnYnZnaGR4dnFwZnphbHJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI2ODU5MzYsImV4cCI6MjA2ODI2MTkzNn0.B7ZlY3GYMo-YGegr50kawkg_HPo-4J-VddDgGCX04eA"]
+    )
+except Exception as e:
+    st.error(f"فشل الاتصال بـ Supabase: {str(e)}")
+    raise
+
+def init_db():
+    pass 
 
 def init_db():
     """وظيفة تهيئة قاعدة البيانات (لا حاجة لها في Supabase)"""
