@@ -9,8 +9,8 @@ from pathlib import Path
 # تهيئة عميل Supabase
 try:
     supabase: Client = create_client(
-        st.secrets["https://nzhjkzptsbgkdsmgoawi.supabase.co"],
-        st.secrets["eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im56aGprenB0c2Jna2RzbWdvYXdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMwMTQ5OTIsImV4cCI6MjA2ODU5MDk5Mn0.HhmgKC3UXPlDpCOLdKR_d2b4swvFVilWF2xEZBy5hTw"]
+        st.secrets["SUPABASE_URL"],
+        st.secrets["SUPABASE_KEY"]
     )
 except Exception as e:
     st.error(f"فشل الاتصال بـ Supabase: {str(e)}")
