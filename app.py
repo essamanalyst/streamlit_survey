@@ -9,13 +9,23 @@ from supabase import create_client, Client
 
 # تهيئة Supabase
 try:
-    supabase = create_client(
-        st.secrets["SUPABASE_URL"],
-        st.secrets["SUPABASE_KEY"]
-    )
-    st.session_state.supabase = supabase
-except Exception as e:
-    st.error(f"فشل تهيئة Supabase: {str(e)}")
+        # تأكد من وجود الأسرار
+        if not all(key in st.secrets for key in ["SUPABASE_URL", "SUPABASE_KEY"]):
+            raise ValueError("Missing Supabase secrets in configuration")
+
+        # إنشاء العميل مع إعدادات محددة
+        supabase = create_client(
+            supabase_url=st.secrets["SUPABASE_URL"],
+            supabase_key=st.secrets["SUPABASE_KEY"],
+            options={
+                "auto_refresh_token": True,
+                "persist_session": True,
+                "detect_session_in_url": False
+            }
+        )
+        return supabase
+    except Exception as e:
+        st.error(f"فشل تهيئة Supabase: {str(e)}")
     st.stop()
 def main():
     st.set_page_config(page_title="نظام إدارة الاستبيانات", page_icon="📋", layout="wide")
