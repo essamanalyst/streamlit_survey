@@ -10,8 +10,8 @@ from supabase import create_client, Client
 # تهيئة Supabase
 try:
     supabase = create_client(
-        st.secrets["https://nzhjkzptsbgkdsmgoawi.supabase.co"],
-        st.secrets["eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im56aGprenB0c2Jna2RzbWdvYXdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMwMTQ5OTIsImV4cCI6MjA2ODU5MDk5Mn0.HhmgKC3UXPlDpCOLdKR_d2b4swvFVilWF2xEZBy5hTw"]
+        st.secrets["SUPABASE_URL"],
+        st.secrets["SUPABASE_KEY"]
     )
     st.session_state.supabase = supabase
 except Exception as e:
