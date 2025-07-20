@@ -8,12 +8,23 @@ from pathlib import Path
 
 # تهيئة عميل Supabase
 try:
-    supabase: Client = create_client(
-        st.secrets["SUPABASE_URL"],
-        st.secrets["SUPABASE_KEY"]
-    )
-except Exception as e:
-    st.error(f"فشل الاتصال بـ Supabase: {str(e)}")
+        # تأكد من وجود الأسرار
+        if not all(key in st.secrets for key in ["SUPABASE_URL", "SUPABASE_KEY"]):
+            raise ValueError("Missing Supabase secrets in configuration")
+
+        # إنشاء العميل مع إعدادات محددة
+        supabase = create_client(
+            supabase_url=st.secrets["SUPABASE_URL"],
+            supabase_key=st.secrets["SUPABASE_KEY"],
+            options={
+                "auto_refresh_token": True,
+                "persist_session": True,
+                "detect_session_in_url": False
+            }
+        )
+        return supabase
+    except Exception as e:
+        st.error(f"فشل تهيئة Supabase: {str(e)}")
     raise
 
 def init_db():
